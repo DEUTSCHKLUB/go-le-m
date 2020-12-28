@@ -2897,6 +2897,13 @@ a.text-dark:hover, a.text-dark:focus {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Teko', sans-serif;
+  font-weight: 600;
+  line-height: 1.2em; }
+
+p, ul, li {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: .6rem;
+  line-height: 1.2em;
   font-weight: 600; }
 
 html {
@@ -2928,7 +2935,7 @@ header#go-le-m-header {
     background: #6b2d15;
     background: -webkit-linear-gradient(100deg, #6b2d15 0%, #c25127 40%, #c25127 60.01%, #ec9099 100%);
     background: linear-gradient(-10deg, #6b2d15 0%, #c25127 40%, #c25127 60.01%, #ec9099 100%);
-    filter: blur(0.5rem);
+    filter: blur(0.3rem);
     width: 100%;
     height: 100%;
     z-index: -1; }
@@ -2948,6 +2955,56 @@ header#go-le-m-header {
     letter-spacing: 3px;
     font-size: 12vmax;
     line-height: 1em;
-    text-shadow: -0.04em 0.04em 1px #292210; }
+    text-shadow: -0.04em 0.04em 1px #292210;
+    position: relative; }
+
+#intro figure.text-logo {
+  position: relative;
+  z-index: -1;
+  margin: -4.5rem auto 1rem -1rem !important;
+  max-width: 500px; }
+  #intro figure.text-logo svg {
+    filter: contrast(0.9); }
+    #intro figure.text-logo svg path, #intro figure.text-logo svg rect, #intro figure.text-logo svg circle {
+      fill: #c25127; }
+
+@keyframes huge-text-wrapper {
+  0%, 25% {
+    opacity: 1; }
+  26%, 100% {
+    opacity: 0; } }
+
+@keyframes huge-text {
+  0%, 3.125% {
+    opacity: 1;
+    transform: translate(0, 0); }
+  4.125%, 100% {
+    opacity: 0;
+    transform: translate(0, -50px); } }
+
+.huge-animated-text {
+  position: relative;
+  height: 12vmax; }
+  .huge-animated-text .huge-text {
+    position: absolute;
+    top: 0;
+    right: 0;
+    animation-name: huge-text-wrapper;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-fill-mode: forwards;
+    opacity: 0; }
+    .huge-animated-text .huge-text:nth-of-type(1) {
+      animation-delay: calc(0 * 4s) !important;
+      animation-duration: calc(16 * 1s) !important; }
+    .huge-animated-text .huge-text:nth-of-type(2) {
+      animation-delay: calc(1 * 4s) !important;
+      animation-duration: calc(16 * 1s) !important; }
+    .huge-animated-text .huge-text:nth-of-type(3) {
+      animation-delay: calc(2 * 4s) !important;
+      animation-duration: calc(16 * 1s) !important; }
+    .huge-animated-text .huge-text:nth-of-type(4) {
+      animation-delay: calc(3 * 4s) !important;
+      animation-duration: calc(16 * 1s) !important; }
 
 /*# sourceMappingURL=style.css.map */

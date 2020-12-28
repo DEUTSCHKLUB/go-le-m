@@ -1,0 +1,14 @@
+#intro{
+    figure.text-logo{
+        position: relative;
+        z-index:-1;
+        margin:-4.5rem auto 1rem -1rem !important;
+        max-width:500px;
+        svg{
+            filter: contrast(.9);
+            path,rect,circle{
+                fill: $red;
+            }
+        } 
+    }
+}
