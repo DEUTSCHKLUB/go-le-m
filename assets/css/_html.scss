@@ -1,0 +1,11 @@
+html{
+    overflow-x:hidden;
+    font-size: 22px;
+    line-height:1.2em;
+    @include media-breakpoint-up(sm) { font-size: calc(22px + 6 * ((100vw - 320px) / 680)); }
+    @include media-breakpoint-up(lg) { font-size: 28px; }
+}
+body{
+    background: $white;
+    color:$black;
+}

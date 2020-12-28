@@ -1,0 +1,29 @@
+// colors
+$red-light:scale-color($red, $lightness: 45%);
+$red:#c25127;
+$red-dark:scale-color($red, $lightness: -45%);
+$yellow-light:scale-color($red, $lightness: 45%);
+$yellow:#e7ce7e;
+$yellow-dark:scale-color($red, $lightness: -45%);
+$black:#292210;
+$white:#faf8f0;
+
+$colors: (
+    "red-light":$red-light,
+    "red":$red,
+    "red-dark":$red-dark,
+    "yellow-light":$yellow-light,
+    "yellow":$yellow,
+    "yellow-dark":$yellow-dark,
+    "black":$black,
+    "white":$white
+);
+
+@each $name, $value in $colors {
+    .bg-#{$name} {
+        background: $value;
+    }
+    .text-#{$name} {
+        color: $value;
+    }
+}

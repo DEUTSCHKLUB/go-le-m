@@ -1,0 +1,30 @@
+extends layout
+
+block append head
+//- styles here
+block content
+	//- header
+	header#go-le-m-header
+		.container.px-3.py-5
+			.row.justify-content-end.align-items-end
+				.header-text-block.text-right.col-12.col-md-8
+					h1
+						|Enjoy your
+						br
+						|snapshots even more...
+				.huge-animated-text.col-12.text-right
+					|Enlarged
+				.header-image-examples.col-12.col-lg-10
+					figure.header-image-example#header-image-before
+						img(src="whatever")
+					figure.header-image-example#header-image-after
+						img(src="whatever")
+	section#intro-upload-section
+		.container.px-3.py-5
+			.row
+				.col-12.col-lg-7
+					h2
+						|transform your photos with the power of Go Le'M
+
+block append footer
+//- scripts here
