@@ -22,9 +22,9 @@ block content
 	section#intro-upload-section
 		.container.px-3.py-5
 			.row
-				#intro.col-12.col-lg-6
-					h2
-						|transform your photos with the power of
+				#intro.col-12.col-lg-6.mb-5.mb-md-0
+					h2.h1
+						|transform your photos with
 						figure.text-logo.fill-red
 							include partials/logo-text-svg.html
 					p
@@ -35,5 +35,6 @@ block content
 						li rename images
 						li add color filters like sepiatone or greyscale
 					p either individually, all at once, or in spearate batches. go Le'M will then send back an archive with all your new images. 
-
+				#uploadForm.col-12.col-lg-6
+					include partials/upload-form.pug
 block append footer

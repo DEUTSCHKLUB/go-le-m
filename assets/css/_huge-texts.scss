@@ -1,45 +1,27 @@
 $numTexts: 4;
-$duration: 4; //seconds per text
-$numChars: 32;
-$charDuration: .5;
-$percent: 100% / $numChars;
+$duration: 2; //seconds per text
 
 @mixin hugeTextWrappers{
     @for $i from 1 through $numTexts{
         &:nth-of-type(#{$i}){
-            animation-delay: calc(#{$i - 1} * 4s) !important;
+            animation-delay: calc(#{$i - 1} * 2s) !important;
             animation-duration: calc(#{$numTexts * $duration} * 1s) !important;
         }
     }
 }
 
-// @mixin hugeTexts{
-//     @for $i from 1 through $numChars{
-//         $delay: calc( 1 * #{$charDuration});
-//         &:nth-of-type(#{$i}){
-//             animation-delay: calc(#{($i - 1) * ($n - 1)} * .5s) !important;
-//             animation-duration: calc(#{$numChars * $duration} * 1s) !important;
-//         }
-//     }
-// }
-
-@keyframes huge-text-wrapper{
-    0%, 25%{
-      opacity: 1;   
-    }
-    26%, 100%{
-        opacity: 0; 
-    }
-}
-
-@keyframes huge-text{
-    0%, #{$percent}{
-      opacity:1;
-      transform: translate(0,0);   
-    }
-    #{$percent + 1}, 100%{
+@keyframes huge-text-wrapper {
+    0% {
         opacity: 0;
-        transform: translate(0,-50px);
+        transform: translate(0,-500px); 
+    }
+    3%, 25% {
+        opacity: 1;
+        transform: translate(0,0);
+    }
+    26%, 50%, 100% {
+        opacity: 0;
+        transform: translate(0,-500px); 
     }
 }
 
@@ -55,6 +37,7 @@ $percent: 100% / $numChars;
         animation-iteration-count: infinite;
         animation-fill-mode: forwards;
         opacity:0;
+        transform: translate(0,-500px);
         @include hugeTextWrappers;
         // span{
         //     opacity: 0;

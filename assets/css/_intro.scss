@@ -2,8 +2,9 @@
     figure.text-logo{
         position: relative;
         z-index:-1;
-        margin:-4.5rem auto 1rem -1rem !important;
-        max-width:500px;
+        margin:-4.5rem auto 0rem 0rem !important;
+        display:inline-block;
+        max-width:250px;
         svg{
             filter: contrast(.9);
             path,rect,circle{

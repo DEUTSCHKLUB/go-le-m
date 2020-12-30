@@ -1,0 +1,58 @@
+label#file-upload-label.drop-label(for='file-upload-field')
+    svg.bi(width='18' height='18' fill='currentColor')
+        use(xlink:href='/icons.svg#download')
+    br
+    |     Click or Drop Files Here
+    input#file-upload-field(type='file' name='uploads[]' multiple='multiple')
+
+script.
+    ;(function(w,d){
+
+        // DRAG-N-DROP FUNCTIONALITY
+
+        const dropArea = document.getElementById('file-upload-label');
+
+        ;['dragenter', 'dragover'].forEach(eventName => {
+            dropArea.addEventListener(eventName, highlight, false);
+        })
+
+        ;['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, unhighlight, false);
+        })
+
+        function highlight(e) {
+            dropArea.classList.add('highlight');
+        }
+
+        function unhighlight(e) {
+            dropArea.classList.remove('highlight');
+        }
+
+        // FILE UPLOAD FUNCTIONALITY
+
+        const fileInput = document.querySelector('#file-upload-field');
+
+        fileInput.onchange = () => {
+            let files = [...fileInput.files];
+            if (files.length > 0) {
+
+                let formData = new FormData();
+                for (let i = 0; i < files.length; i++) {
+                    let file = files[i]
+                    formData.append('uploads[]', file, file.name)
+                }
+                
+                fetch(`/f/${slateid}/upload`, {
+                    method:'POST',
+                    body:formData	
+                }).then(res => {
+                    return res.json();
+                }).then( data => {
+                    buildFileList(data.children);
+                }).catch(function(e) {
+                    console.log('Error',e);
+                });
+            }
+        };
+
+    })(window, document)
