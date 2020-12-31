@@ -13,7 +13,7 @@ $duration: 2; //seconds per text
 @keyframes huge-text-wrapper {
     0% {
         opacity: 0;
-        transform: translate(0,-500px); 
+        transform: translate(0,-150px); 
     }
     3%, 25% {
         opacity: 1;
@@ -21,7 +21,7 @@ $duration: 2; //seconds per text
     }
     26%, 50%, 100% {
         opacity: 0;
-        transform: translate(0,-500px); 
+        transform: translate(0,-150px); 
     }
 }
 
@@ -33,11 +33,11 @@ $duration: 2; //seconds per text
         top:0;
         right:0;
         animation-name: huge-text-wrapper;
-        animation-timing-function: linear; 
+        animation-timing-function: cubic-bezier(0,1,.66,1.5); 
         animation-iteration-count: infinite;
         animation-fill-mode: forwards;
         opacity:0;
-        transform: translate(0,-500px);
+        transform: translate(0,-150px);
         @include hugeTextWrappers;
         // span{
         //     opacity: 0;

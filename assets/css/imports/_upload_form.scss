@@ -1,24 +1,27 @@
 .drop-label {
-    display: block;
-    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
     cursor: pointer;
-    border-radius: 5px;
-    color:$black;
+    color:$red;
     width:100%;
-    height:100px;
-    border: 1px solid $black;
-    border-radius: 6px;
+    height:200px;
+    background:#000;
+    border:3px dashed $red;
     padding: 20px;
     text-align:center;
     position: relative;
     transition: all 0.3s ease-out;
-    margin-bottom:30px;
+    margin:0 auto 30px;
+    z-index:10;
     &.highlight, &:hover {
-        color:$red;
-        border-color: $red;
+        color:$yellow;
+        border-color: $yellow;
     }
     input{
         cursor: pointer;
+        display:block;
     }
   }
 #file-upload-field {

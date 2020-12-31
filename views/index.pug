@@ -16,25 +16,28 @@ block content
 					include partials/header-texts.pug
 				.header-image-examples.col-12.col-lg-10
 					figure.header-image-example#header-image-before
-						img(src="whatever")
+						img(src="/images/computer-guy.jpg")
 					figure.header-image-example#header-image-after
-						img(src="whatever")
+						img(src="/images/computer-guy.jpg")
 	section#intro-upload-section
-		.container.px-3.py-5
+		.container.px-3.py-3.py-lg-5
 			.row
-				#intro.col-12.col-lg-6.mb-5.mb-md-0
+				#intro.col-12.col-lg-5.mb-0.mb-md-0.pt-5
 					h2.h1
 						|transform your photos with
-						figure.text-logo.fill-red
-							include partials/logo-text-svg.html
+						br
+						|go Le'M
+						
 					p
-						|go Le'M uses the power of the golem network and decentralized computing to rapidly transform images. With it, you can –
+						|go Le'M (go Le' Machin) uses the power of the golem network and decentralized computing to rapidly transform images. With it, you can –
 					ul
 						li rotate, flip, and resize
 						li color correct your images
 						li rename images
 						li add color filters like sepiatone or greyscale
 					p either individually, all at once, or in spearate batches. go Le'M will then send back an archive with all your new images. 
-				#uploadForm.col-12.col-lg-6
+				#uploadForm.col-12.col-lg-7.pl-0.pl-lg-4
+					figure.mb-0
+						img(src="/images/upload-sign.gif" class="img-fluid w-100 h-auto" style="mix-blend-mode:multiply;")
 					include partials/upload-form.pug
 block append footer
