@@ -106,18 +106,18 @@ header#go-le-m-header{
     }
     25%{
         filter: grayscale(.5) contrast(.7) blur(.7px);
-        transform: scale(1.2) rotateZ(-15deg) rotateY(0deg);
+        transform: scale(1.1) rotateZ(-15deg) rotateY(0deg);
     }
     50%{
         filter: grayscale(.5) contrast(.7) blur(.7px);
-        transform: scale(1.2) rotateZ(-15deg) rotateY(180deg);
+        transform: scale(1.1) rotateZ(-15deg) rotateY(180deg);
     }
     75%{
-        transform: scale(1.2) rotateZ(-15deg) rotateY(180deg);
+        transform: scale(1.1) rotateZ(-15deg) rotateY(180deg);
         filter: grayscale(0) contrast(1) blur(.7px);
     }
     100%{
-        transform: scale(1.2) rotateZ(-15deg) rotateY(180deg);
+        transform: scale(1.1) rotateZ(-15deg) rotateY(180deg);
         filter: grayscale(0) contrast(1) blur(0px);
     }
 }

@@ -27,3 +27,153 @@ $colors: (
         color: $value;
     }
 }
+
+// FORM VARIABLES
+
+// Forms
+
+$label-margin-bottom:                   .125rem;
+
+$input-padding-y:                       .35rem;
+$input-padding-x:                       .5rem;
+$input-font-family:                     monospace !important;
+$input-font-size:                       10px;
+$input-font-weight:                     400;
+$input-line-height:                     1em;
+
+$input-bg:                              transparent;
+
+$input-color:                           $black;
+$input-border-color:                    $black;
+$input-border-width:                    3px;
+$input-box-shadow:                      inset 0 1px 1px rgba($black, .075);
+
+$input-border-radius:                   0px;
+$input-border-radius-lg:                0px;
+$input-border-radius-sm:                0px;
+
+$input-focus-bg:                        $input-bg;
+$input-focus-border-color:              $red;
+$input-focus-box-shadow:                none;
+
+$input-placeholder-color:               $gray-600;
+$input-plaintext-color:                 $black;
+
+$custom-control-gutter:                 .5rem;
+$custom-control-spacer-x:               1rem;
+$custom-control-cursor:                 null;
+
+$custom-control-indicator-size:         .75rem;
+$custom-control-indicator-bg:           $input-bg;
+
+$custom-control-indicator-bg-size:      50% 50%;
+$custom-control-indicator-box-shadow:   none;
+$custom-control-indicator-border-color: $black;
+$custom-control-indicator-border-width: $input-border-width;
+
+$custom-control-label-color:            $black;
+
+$custom-control-indicator-disabled-bg:          $input-disabled-bg;
+$custom-control-label-disabled-color:           $gray-600;
+
+$custom-control-indicator-checked-color:        $white;
+$custom-control-indicator-checked-bg:           $red;
+$custom-control-indicator-checked-disabled-bg:  rgba($red, .5);
+$custom-control-indicator-checked-box-shadow:   null;
+$custom-control-indicator-checked-border-color: $custom-control-indicator-checked-bg;
+
+$custom-control-indicator-focus-box-shadow:     none;
+$custom-control-indicator-focus-border-color:   $input-focus-border-color;
+
+$custom-control-indicator-active-color:         $component-active-color;
+$custom-control-indicator-active-bg:            lighten($component-active-bg, 35%);
+$custom-control-indicator-active-box-shadow:    null;
+$custom-control-indicator-active-border-color:  $custom-control-indicator-active-bg;
+
+$custom-checkbox-indicator-border-radius:       none;
+$custom-checkbox-indicator-icon-checked:        url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'><path fill='#{$custom-control-indicator-checked-color}' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26l2.974 2.99L8 2.193z'/></svg>");
+
+$custom-checkbox-indicator-indeterminate-bg:           $red;
+$custom-checkbox-indicator-indeterminate-color:        $white;
+$custom-checkbox-indicator-icon-indeterminate:         url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'><path stroke='#{$custom-checkbox-indicator-indeterminate-color}' d='M0 2h4'/></svg>");
+$custom-checkbox-indicator-indeterminate-box-shadow:   null;
+$custom-checkbox-indicator-indeterminate-border-color: $custom-checkbox-indicator-indeterminate-bg;
+
+$custom-radio-indicator-border-radius:          50%;
+$custom-radio-indicator-icon-checked:           url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='-4 -4 8 8'><circle r='3' fill='#{$custom-control-indicator-checked-color}'/></svg>");
+
+$custom-switch-width:                           $custom-control-indicator-size * 1.75;
+$custom-switch-indicator-border-radius:         $custom-control-indicator-size / 2;
+$custom-switch-indicator-size:                  subtract($custom-control-indicator-size, $custom-control-indicator-border-width * 4);
+
+$custom-select-padding-y:           0rem;
+$custom-select-padding-x:           0rem;
+$custom-select-font-family:         $input-font-family;
+$custom-select-font-size:           $input-font-size;
+$custom-select-height:              $input-height;
+$custom-select-indicator-padding:   2rem; // Extra padding to account for the presence of the background-image based indicator
+$custom-select-font-weight:         $input-font-weight;
+$custom-select-line-height:         $input-line-height;
+$custom-select-color:               $input-color;
+$custom-select-disabled-color:      $gray-600;
+$custom-select-bg:                  $input-bg;
+$custom-select-disabled-bg:         $gray-200;
+$custom-select-bg-size:             8px 10px; // In pixels because image dimensions
+$custom-select-indicator-color:     $gray-800;
+$custom-select-indicator:           url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'><path fill='#{$custom-select-indicator-color}' d='M2 0L0 2h4zm0 5L0 3h4z'/></svg>");
+$custom-select-background:          escape-svg($custom-select-indicator) no-repeat right $custom-select-padding-x center / $custom-select-bg-size; // Used so we can have multiple background elements (e.g., arrow and feedback icon)
+
+$custom-select-border-width:        $input-border-width;
+$custom-select-border-color:        $input-border-color;
+$custom-select-border-radius:       none;
+$custom-select-box-shadow:          none;
+
+$custom-select-focus-border-color:  $input-focus-border-color;
+$custom-select-focus-width:         $input-focus-width;
+$custom-select-focus-box-shadow:    0;
+
+$custom-range-track-width:          100%;
+$custom-range-track-height:         .5rem;
+$custom-range-track-cursor:         pointer;
+$custom-range-track-bg:             $yellow;
+$custom-range-track-border-radius:  1rem;
+$custom-range-track-box-shadow:     inset 0 .25rem .25rem rgba($black, .1);
+
+$custom-range-thumb-width:                   1rem;
+$custom-range-thumb-height:                  $custom-range-thumb-width;
+$custom-range-thumb-bg:                      $red;
+$custom-range-thumb-border:                  0;
+$custom-range-thumb-border-radius:           1rem;
+$custom-range-thumb-box-shadow:              0 .1rem .25rem rgba($black, .1);
+$custom-range-thumb-focus-box-shadow:        0 0 0 1px $body-bg, $input-focus-box-shadow;
+$custom-range-thumb-focus-box-shadow-width:  $input-focus-width; // For focus box shadow issue in IE/Edge
+$custom-range-thumb-active-bg:               lighten($red, 35%);
+$custom-range-thumb-disabled-bg:             $gray-500;
+
+
+// Form validation
+
+$form-feedback-margin-top:          $form-text-margin-top;
+$form-feedback-font-size:           $small-font-size;
+$form-feedback-valid-color:         adjust-hue($red, 215deg);
+$form-feedback-invalid-color:       $red;
+
+$form-feedback-icon-valid-color:    $form-feedback-valid-color;
+$form-feedback-icon-valid:          url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#{form-feedback-valid-color}" class="bi bi-check" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>');
+$form-feedback-icon-invalid-color:  $form-feedback-invalid-color;
+$form-feedback-icon-invalid:        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#{$form-feedback-invalid-color}" class="bi bi-exclamation" viewBox="0 0 16 16"><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.553.553 0 0 1-1.1 0L7.1 4.995z"/></svg>');
+
+$form-validation-states: ();
+$form-validation-states: map-merge(
+  (
+    "valid": (
+      "color": $form-feedback-valid-color,
+      "icon": $form-feedback-icon-valid
+    ),
+    "invalid": (
+      "color": $form-feedback-invalid-color,
+      "icon": $form-feedback-icon-invalid
+    ),
+  ),
+  $form-validation-states
+);

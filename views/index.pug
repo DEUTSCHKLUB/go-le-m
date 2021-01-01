@@ -5,8 +5,11 @@ block append head
 block content
 	//- header
 	header#go-le-m-header
-		.container.px-3.py-5
+		.container.px-3.pb-5.mb-3
 			.row.justify-content-end.align-items-end
+				.logo.col-12.align-items-start
+					figure.mb-0.px-1.py-1(style="max-width:120px;background:#e7ce7e;")
+						img(src="/images/go-le-m_logo-text.svg")
 				.header-text-block.text-right.col-12.col-md-8
 					h1
 						|Enjoy your
@@ -40,4 +43,13 @@ block content
 					figure.mb-0
 						img(src="/images/upload-sign.gif" class="img-fluid w-100 h-auto" style="mix-blend-mode:multiply;")
 					include partials/upload-form.pug
+	section#batch-form-section
+		.container.px-3.py-3.pt-lg-3
+			.row
+				#batch-intro.order-md-2.col-12.col-lg-4.mb-0.mb-md-0.pt-5
+					h2.h1 order prints of your images
+					p Fill out the batch envelope with all the images you want to have a set of transformations. Once you order a batch, it will begin processing and you can create a new batch. 
+				#batch-order-form-wrap.order-md-1.col-12.col-lg-8.pl-0.pl-lg-4
+					include partials/batch-form.pug
+
 block append footer

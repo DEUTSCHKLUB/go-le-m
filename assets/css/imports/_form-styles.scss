@@ -1,0 +1,76 @@
+form{
+    font-size:16px !important;
+}
+input[type="text"]{
+    border-right:none;
+    border-left:none;
+    border-top:none;
+}
+
+#batch-form{
+    font-family: monospace;
+    border:2px solid $black;
+    padding:.5rem;
+    .form-group{
+        // border:2px solid lighten($black,50%);
+        border-bottom:none;
+        // margin-bottom: 0;
+        // padding:.5rem;
+        display:block;
+    }
+    span.form-text{
+        font-size:.5rem;
+        line-height: 1.1em;
+        font-family: sans-serif;
+        letter-spacing: .2px;
+    }
+    label{
+        display: inline-flex;
+        align-items: center;
+        justify-content: start;
+        line-height: 0;
+        &.section-label{
+            background: $yellow;
+            font-family: 'Teko', sans-serif;
+            font-weight:500;
+            font-size:.8rem;
+            display:block;
+            box-shadow:2px 2px 0px $red;
+            padding:3px 0 3px 5px;
+        }
+    }
+    .custom-control{
+        padding-left:1.5rem;
+        margin-right:.5rem;
+        input[type="radio"], input[type="checkbox"]{
+            width:1px !important;
+            height:1px !important;
+        }
+        .custom-control-inline{
+            margin-right:.3rem !important;
+        }
+    }
+    input[type="range"]{
+        border:none;
+        padding:1rem 0;
+    }
+    select[multiple]{
+        border:2px solid $black;
+        min-height:500px;
+    }
+}
+
+$green: adjust-hue($red, 105deg);
+input:valid{
+    border-color:desaturate($green, 20%);
+    color:desaturate($green, 20%);
+    outline:none !important;
+    box-shadow:none !important;
+}
+
+input:invalid,select[multiple]:invalid{
+    border-color:$red;
+    color:$red;
+    outline:none !important;
+    box-shadow:none !important;
+}

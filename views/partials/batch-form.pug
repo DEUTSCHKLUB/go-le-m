@@ -1,0 +1,124 @@
+form#batch-form(name="batch-form", method="post", action="#")
+  .row.align-items-stretch
+    #batch-info-wrap.col-12.col-md-6
+        .form-group
+            label.section-label(for='batch-file-name')
+                svg.bi(width='22' height='22' fill='currentColor')
+                    use(xlink:href='/icons.svg#file-earmark-font')
+                |File Name
+            input#batch-file-name.form-control(name='batch-file-name' placeholder='File Name for Batch' type='text' aria-describedby='batch-file-nameHelpBlock' required='required')
+            span#batch-file-nameHelpBlock.form-text.text-muted Enter the name applied to each file in this batch
+        .form-group
+            label.section-label(for='batch-image-select')
+                svg.bi(width='22' height='22' fill='currentColor')
+                    use(xlink:href='/icons.svg#images')
+                |Batch Image Select
+            div
+            select#batch-image-select.custom-select(multiple='multiple' name='batch-image-select' aria-describedby='batch-image-selectHelpBlock' required='required')
+                option(value='img1-url') Image 1
+                option(value='img2-url') Image 2
+                option(value='img3-url') Image 3
+                option(value='img1-url') Image 1
+                option(value='img2-url') Image 2
+                option(value='img3-url') Image 3
+            span#batch-image-selectHelpBlock.form-text.text-muted Select all the images you want in this batch. (Hold CMD or CTRL and click to select multiple images)
+    #transforms-col.col-12.col-md-6
+        .form-group
+            label.section-label
+                svg.bi(width='22' height='22' fill='currentColor')
+                    use(xlink:href='/icons.svg#arrow-repeat')
+                | Rotate Images
+            div.form-row
+                .custom-control.custom-radio.custom-control-inline
+                    input#batch-rotate_0.custom-control-input(name='batch-rotate' type='radio' value='90' aria-describedby='batch-rotateHelpBlock')
+                    label.custom-control-label(for='batch-rotate_0') 90&ring;
+                .custom-control.custom-radio.custom-control-inline
+                    input#batch-rotate_1.custom-control-input(name='batch-rotate' type='radio' value='180' aria-describedby='batch-rotateHelpBlock')
+                    label.custom-control-label(for='batch-rotate_1') 180&ring;
+                .custom-control.custom-radio.custom-control-inline
+                    input#batch-rotate_2.custom-control-input(name='batch-rotate' type='radio' value='270' aria-describedby='batch-rotateHelpBlock')
+                    label.custom-control-label(for='batch-rotate_2') 270&ring;
+                .custom-control.custom-radio.custom-control-inline
+                    input#batch-rotate_3.custom-control-input(name='batch-rotate' type='radio' value='0' aria-describedby='batch-rotateHelpBlock' checked)
+                    label.custom-control-label(for='batch-rotate_3') None
+                span#batch-rotateHelpBlock.form-text.text-muted Rotate all images in this batch by degrees
+        .form-group
+            label.section-label
+                svg.bi(width='22' height='22' fill='currentColor')
+                    use(xlink:href='/icons.svg#arrow-down-up')
+                | Flip Images
+            div.form-row
+                .custom-control.custom-radio.custom-control-inline
+                    input#batch-flip_0.custom-control-input(name='batch-flip' type='radio' value='horizontal' aria-describedby='batch-flipHelpBlock')
+                    label.custom-control-label(for='batch-flip_0') Horizontal
+                .custom-control.custom-radio.custom-control-inline
+                    input#batch-flip_1.custom-control-input(name='batch-flip' type='radio' value='vertical' aria-describedby='batch-flipHelpBlock')
+                    label.custom-control-label(for='batch-flip_1') Vertical
+                .custom-control.custom-radio.custom-control-inline
+                    input#batch-flip_2.custom-control-input(name='batch-flip' type='radio' value='none' aria-describedby='batch-flipHelpBlock' checked)
+                    label.custom-control-label(for='batch-flip_2') None
+                span#batch-flipHelpBlock.form-text.text-muted Flip all images in this batch by direction
+        .form-group
+            div
+                label.section-label(for='batch-resize')
+                    svg.bi(width='22' height='22' fill='currentColor')
+                        use(xlink:href='/icons.svg#arrows-angle-expand')
+                    | Resize Images
+                input#batch-resize.form-control(name='batch-resize' placeholder='Maximum resize dimensions' type='text' aria-describedby='batch-resizeHelpBlock')
+                span#batch-resizeHelpBlock.form-text.text-muted Set the maximum dimension for the images in this batch.
+                .custom-control.custom-checkbox.custom-control-inline
+                    input#batch-resize-keep-aspect-ratio_0.custom-control-input(name='batch-resize-keep-aspect-ratio' type='checkbox' value='true' checked='checked' aria-describedby='batch-resize-keep-aspect-ratioHelpBlock')
+                    label.custom-control-label(for='batch-resize-keep-aspect-ratio_0') Keep Aspect Ratio
+                span#batch-resize-keep-aspect-ratioHelpBlock.form-text.text-muted
+                    | If not checked, the image will be cropped to a square.
+        .form-group
+            label.section-label(for='batch-scale-images')
+                svg.bi(width='22' height='22' fill='currentColor')
+                    use(xlink:href='/icons.svg#aspect-ratio')
+                | Scale Images
+            input#batch-scale-images.form-control.custom-range(type='range' name='batch-scale-images' min='50' max='200' value='100' step='10' aria-describedby='batch-scale-imagesHelpBlock')
+            span#batch-scale-imagesHelpBlock.form-text.text-muted Scale Images from 50% to 200% Max
+        .form-group
+            label.section-label
+                svg.bi(width='22' height='22' fill='currentColor')
+                    use(xlink:href='/icons.svg#sliders')
+                | Color Corrections
+            div.form-row
+                .custom-control.custom-checkbox.custom-control-inline
+                    input#batch-correct-colors_0.custom-control-input(name='batch-correct-colors' type='checkbox' value='equalize' aria-describedby='batch-correct-colorsHelpBlock')
+                    label.custom-control-label(for='batch-correct-colors_0') Equalize
+                .custom-control.custom-checkbox.custom-control-inline
+                    input#batch-correct-colors_1.custom-control-input(name='batch-correct-colors' type='checkbox' value='normalize' aria-describedby='batch-correct-colorsHelpBlock')
+                    label.custom-control-label(for='batch-correct-colors_1') Normalize
+                .custom-control.custom-checkbox.custom-control-inline
+                    input#batch-correct-colors_2.custom-control-input(name='batch-correct-colors' type='checkbox' value='white-balance' aria-describedby='batch-correct-colorsHelpBlock')
+                    label.custom-control-label(for='batch-correct-colors_2') White Balance
+                span#batch-correct-colorsHelpBlock.form-text.text-muted Choose any color correction you&apos;d like to perform on the batch.
+        .form-group
+            label.section-label
+                svg.bi(width='22' height='22' fill='currentColor')
+                    use(xlink:href='/icons.svg#exclude')
+                | Colorize Images
+            div.form-row
+                .custom-control.custom-radio.custom-control-inline
+                    input#batch-colorize-images_0.custom-control-input(name='batch-colorize-images' type='radio' value='black-white' aria-describedby='batch-colorize-imagesHelpBlock')
+                    label.custom-control-label(for='batch-colorize-images_0') B/W
+                .custom-control.custom-radio.custom-control-inline
+                    input#batch-colorize-images_1.custom-control-input(name='batch-colorize-images' type='radio' value='greyscale' aria-describedby='batch-colorize-imagesHelpBlock')
+                    label.custom-control-label(for='batch-colorize-images_1') Greyscale
+                .custom-control.custom-radio.custom-control-inline
+                    input#batch-colorize-images_2.custom-control-input(name='batch-colorize-images' type='radio' value='sepia' aria-describedby='batch-colorize-imagesHelpBlock')
+                    label.custom-control-label(for='batch-colorize-images_2') Sepia
+                .custom-control.custom-radio.custom-control-inline
+                    input#batch-colorize-images_3.custom-control-input(name='batch-colorize-images' type='radio' value='sepia' aria-describedby='batch-colorize-imagesHelpBlock' checked)
+                    label.custom-control-label(for='batch-colorize-images_3') None
+                span#batch-colorize-imagesHelpBlock.form-text.text-muted Choose an colorization option for the batch
+        .form-group
+            label.section-label(for='batch-watermark')
+                svg.bi(width='22' height='22' fill='currentColor')
+                    use(xlink:href='/icons.svg#badge-tm')
+                | Watermark Images
+            input#batch-watermark.form-control(name='batch-watermark' placeholder='Watermark Text' type='text' aria-describedby='batch-watermarkHelpBlock')
+            span#batch-watermarkHelpBlock.form-text.text-muted Adds a watermark text to the bottom-right of the batch images
+        .form-group
+            button.btn.btn-primary(name='submit' type='submit') Order Batch

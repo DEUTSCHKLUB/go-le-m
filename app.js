@@ -30,6 +30,7 @@ app.use(sassMiddleware({
   debug: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/icons.svg', express.static(__dirname + '/node_modules/bootstrap-icons/bootstrap-icons.svg'));
 
 app.use('/', indexRouter);
 
@@ -37,13 +38,6 @@ app.use('/', indexRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
-/* bootstrap icons include from modules. This way we can use them as sprites: e.g.
-  <svg class="bi" width="32" height="32" fill="currentColor">
-    <use xlink:href="/icons.svg#icon-name-here"/>
-  </svg>
-*/ 
-app.use('/icons.svg', express.static(__dirname + '/node_modules/bootstrap-icons/bootstrap-icons.svg'));
 
 // error handler
 app.use(function(err, req, res, next) {
