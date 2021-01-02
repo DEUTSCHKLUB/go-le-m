@@ -1,0 +1,1 @@
+{"batch-file-name":"Names","batch-image-select":"b7df1424a881e4d3232e6dd0ebc9d1908309e588.png,images.jpg","rotate":"90","flip":"horizontal","resize":"","aspect-ratio":"-extent","scale":"100","batch-correct-colors":"-equalize,+channel -normalize","batch-colorize-images":"-threshold 35%","batchId":"1609617190887"}

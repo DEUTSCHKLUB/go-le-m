@@ -55,15 +55,63 @@ router.post("/upload/:jobid", function(req, res) {
 
 router.post("/create/:jobid", function(req, res) {
   // notes, gotta split the file select field and the color correction field into an array
-  // let template = JSON.parse(config); // <- this is for later
+  let template = JSON.parse(config); // <- this is for later
   let jid = req.params.jobid;
+
+  /*
+    {
+      batchFileName: 'Names',
+      batchImageSelect: 'b7df1424a881e4d3232e6dd0ebc9d1908309e588.png,images.jpg',
+      rotate: '',
+      flip: 'horizontal',
+      resize: '600',
+      aspectRatio: '-extent',
+      scale: '105',
+      colorCorrections: '-equalize,+channel -normalize',
+      colorize: '-colorspace Gray',
+      batchId: '1609617590725'
+    }
+  */
+
+  const {batchFileName, batchImageSelect, colorCorrections, batchId, ...transforms} = req.body;
+
+  console.log(batchFileName, batchImageSelect, colorCorrections, batchId, transforms);
+
+  template.images = batchImageSelect.split(",");
+
+  // get the easy transforms added to json 
+  for(const [key, value] of Object.entries(transforms)){
+    if(value != ""){
+      let fsname = value.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").replace(/\s+/g,"-").toLowerCase();
+      let action = {
+              "action":`${key} ${value}`,
+              "name":`${batchFileName}_$f_${key}_${fsname}$e`
+      };
+      template.actions.push(action);
+    }
+  }
+
+  // split and add color corrections
+
+  for(let cc of colorCorrections.split(",")){
+    if(cc != ""){
+      let fsname = cc.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").replace(/\s+/g,"-").toLowerCase();
+      let action = {
+              "action":`${cc}`,
+              "name":`${batchFileName}_$f_${cc}_${fsname}$e`
+      };
+      template.actions.push(action);
+    }
+  }
   
-  fs.writeFile(path.join(baseJobPath, jid,'transforms.json'), JSON.stringify(req.body), (err) => { 
+  fs.writeFile(path.join(baseJobPath, jid,'transforms.json'), JSON.stringify(template), (err) => { 
     if (err) throw err; 
     console.log(`Job ${jid} created.`)
   });
 
-  res.json(req.body);
+  console.log(JSON.stringify(template));
+
+  res.json(JSON.stringify(template));
 });
 
 module.exports = router;
