@@ -109,8 +109,6 @@ router.post("/create/:jobid", function(req, res) {
     console.log(`Job ${jid} created.`)
   });
 
-  console.log(JSON.stringify(template));
-
   res.json(JSON.stringify(template));
 });
 
