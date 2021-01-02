@@ -52,3 +52,18 @@ label{
         margin-right:.4rem;
     }
 }
+
+.text-red{
+    color:$red !important;
+}
+
+.text-yellow{
+    color:$yellow !important;
+}
+
+.text-shadow{
+    text-shadow: -.04em .04em 1px $black;
+    &.text-shadow-lg{
+        text-shadow: -.1em .1em 1px $black;
+    }
+}

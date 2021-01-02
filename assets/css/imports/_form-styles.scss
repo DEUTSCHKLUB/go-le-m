@@ -7,16 +7,37 @@ input[type="text"]{
     border-top:none;
 }
 
+#batch-order-form-wrap{
+    position: relative;
+    @include media-breakpoint-up(lg){
+        transform:rotate3d(-10, -10, -5, -15deg);
+    }
+    &:after{
+        position: absolute;
+        z-index:-1;
+        top:30px;
+        left:-50px;
+        width:110%;
+        height:100%;
+        border-radius:50%;
+        content:"";
+        background: $black;
+        filter: blur(30px) opacity(.3);
+    }
+}
+
 #batch-form{
     font-family: monospace;
-    border:2px solid $black;
+    @include linear-gradient(-220deg, $yellow 0%, $yellow 70.01%, darken($yellow, 10%) 100%);
     padding:.5rem;
+    *{
+        cursor: pointer;
+    }
     .form-group{
-        // border:2px solid lighten($black,50%);
-        border-bottom:none;
-        // margin-bottom: 0;
-        // padding:.5rem;
+        margin-bottom: .5rem;
+        padding:.5rem;
         display:block;
+        background: $white;
     }
     span.form-text{
         font-size:.5rem;
@@ -35,7 +56,7 @@ input[type="text"]{
             font-weight:500;
             font-size:.8rem;
             display:block;
-            box-shadow:2px 2px 0px $red;
+            box-shadow:-2px 2px 0px $red;
             padding:3px 0 3px 5px;
         }
     }
@@ -54,16 +75,71 @@ input[type="text"]{
         border:none;
         padding:1rem 0;
     }
+    .range-values{
+        display:flex;
+        align-items:start;
+        justify-content: space-between;
+        width:100%;
+        .range-value{
+            align-content: center;
+            justify-content: center;
+            &.min{
+                align-content: start; 
+            }
+            &.max{
+                align-content: end;
+            }
+        }
+    }
     select[multiple]{
-        border:2px solid $black;
-        min-height:500px;
+        border:none;
+        min-height:160px;
+        -moz-appearance: menulist;
+        -webkit-appearance: menulist;
+        appearance: menulist;
+        // Additional resets for further consistency
+        background-color: transparent;
+        color:$red;
+        &:focus option:checked, &:not(:focus) option:checked {
+            background: $red linear-gradient(0deg, $red 0%, $red 100%);
+        }
+        option{
+            white-space: normal;
+            padding:.2rem;
+            display:flex;
+            align-items:center;
+            &:checked{
+                background-color:$red !important;
+                color:$white;
+            }
+            img.option-preview{
+                max-width:40px;
+                height:auto;
+                margin-right:.4rem;
+            }
+        }
     }
 }
 
-$green: adjust-hue($red, 105deg);
+.btn{
+    background-color: $red;
+    color:$white;
+    border:0;
+    padding:.4rem;
+    transition: background-color 0.3s ease-out;
+    &:hover,&:focus{
+        background-color:$red-dark;
+    }
+    &.btn-block{
+        display:block;
+        width:100%;
+    }
+}
+
+
 input:valid{
-    border-color:desaturate($green, 20%);
-    color:desaturate($green, 20%);
+    border-color:$black;
+    color:$black;
     outline:none !important;
     box-shadow:none !important;
 }
@@ -73,4 +149,16 @@ input:invalid,select[multiple]:invalid{
     color:$red;
     outline:none !important;
     box-shadow:none !important;
+}
+
+.envelope-edge{
+    background-image: repeating-linear-gradient(180deg, transparent 0%, $yellow 100%), repeating-linear-gradient(90deg, $yellow-light, $yellow 1%, $yellow-light 3%);
+    display:block;
+    width:100%;
+    height:1.5rem;
+    border-bottom:2px solid lighten($yellow, 10%);
+    &.bottom{
+        border-top:2px solid darken($yellow, 10%);
+        background-image: repeating-linear-gradient(0deg, transparent 0%, $yellow 100%), repeating-linear-gradient(90deg, $yellow-light, $yellow 1%, $yellow-light 3%);
+    }
 }

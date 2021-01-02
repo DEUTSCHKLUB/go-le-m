@@ -13,3 +13,26 @@
         } 
     }
 }
+
+#batch-intro{
+    color:$white !important;
+    position: relative;
+    padding:1.5rem;
+    @include media-breakpoint-up(lg){
+        z-index:100;
+    }
+    &:after{
+        content:"";
+        display:block;
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        background:$red;
+        border-radius: 40%;
+        filter:blur(1rem);
+        width:130%;
+        height:130%;
+        z-index:-1;
+    }
+}

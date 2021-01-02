@@ -7,6 +7,8 @@ const createError = require('http-errors'),
       srcPath = __dirname + '/assets/',
       destPath = __dirname + '/public/';
 
+global.appRoot = require('app-root-path');
+
 // Routes
 const indexRouter = require('./routes/index');
 

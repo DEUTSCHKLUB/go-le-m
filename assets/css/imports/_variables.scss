@@ -2,9 +2,9 @@
 $red-light:scale-color($red, $lightness: 45%);
 $red:#c25127;
 $red-dark:scale-color($red, $lightness: -45%);
-$yellow-light:scale-color($red, $lightness: 45%);
+$yellow-light:scale-color($yellow, $lightness: 75%);
 $yellow:#e7ce7e;
-$yellow-dark:scale-color($red, $lightness: -45%);
+$yellow-dark:scale-color($yellow, $lightness: -45%);
 $black:#292210;
 $white:#faf8f0;
 

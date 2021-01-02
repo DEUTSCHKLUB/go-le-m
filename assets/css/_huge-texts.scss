@@ -1,5 +1,7 @@
 $numTexts: 4;
 $duration: 2; //seconds per text
+$start-position-x: 0px;
+$start-position-y: -200px;
 
 @mixin hugeTextWrappers{
     @for $i from 1 through $numTexts{
@@ -13,7 +15,7 @@ $duration: 2; //seconds per text
 @keyframes huge-text-wrapper {
     0% {
         opacity: 0;
-        transform: translate(0,-150px); 
+        transform: translate($start-position-x,$start-position-y); 
     }
     3%, 25% {
         opacity: 1;
@@ -21,7 +23,7 @@ $duration: 2; //seconds per text
     }
     26%, 50%, 100% {
         opacity: 0;
-        transform: translate(0,-150px); 
+        transform: translate($start-position-x,-$start-position-y); 
     }
 }
 
@@ -37,16 +39,7 @@ $duration: 2; //seconds per text
         animation-iteration-count: infinite;
         animation-fill-mode: forwards;
         opacity:0;
-        transform: translate(0,-150px);
+        transform: translate($start-position-x,$start-position-y);
         @include hugeTextWrappers;
-        // span{
-        //     opacity: 0;
-        //     transform: translate(0,-50px);
-        //     animation-name: huge-text;
-        //     animation-timing-function: cubic-bezier(.7,-0.26,.23,1.41); 
-        //     animation-iteration-count: infinite;
-        //     animation-fill-mode: forwards;
-        //     @include hugeTexts;
-        // }
     }
 }

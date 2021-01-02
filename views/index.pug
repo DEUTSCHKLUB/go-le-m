@@ -10,11 +10,14 @@ block content
 				.logo.col-12.align-items-start
 					figure.mb-0.px-1.py-1(style="max-width:120px;background:#e7ce7e;")
 						img(src="/images/go-le-m_logo-text.svg")
-				.header-text-block.text-right.col-12.col-md-8
+				.header-text-block.text-right.col-12.col-md-8(style="position:relative;z-index:100;")
 					h1
-						|Enjoy your
+						|Enjoy your snapshots
 						br
-						|snapshots even more...
+						|when they're
+					.next-line(style="position:absolute;top:13rem;right:0;")
+						h2.h1.text-yellow.text-shadow.text-shadow-lg
+							|and more!
 				.huge-animated-text.col-12.text-right
 					include partials/header-texts.pug
 				.header-image-examples.col-12.col-lg-10
@@ -27,7 +30,7 @@ block content
 			.row
 				#intro.col-12.col-lg-5.mb-0.mb-md-0.pt-5
 					h2.h1
-						|transform your photos with
+						|Transform your photos with
 						br
 						|go Le'M
 						
@@ -43,13 +46,15 @@ block content
 					figure.mb-0
 						img(src="/images/upload-sign.gif" class="img-fluid w-100 h-auto" style="mix-blend-mode:multiply;")
 					include partials/upload-form.pug
-	section#batch-form-section
-		.container.px-3.py-3.pt-lg-3
-			.row
-				#batch-intro.order-md-2.col-12.col-lg-4.mb-0.mb-md-0.pt-5
-					h2.h1 order prints of your images
-					p Fill out the batch envelope with all the images you want to have a set of transformations. Once you order a batch, it will begin processing and you can create a new batch. 
-				#batch-order-form-wrap.order-md-1.col-12.col-lg-8.pl-0.pl-lg-4
+	section#batch-form-section(style="perspective:600px;")
+		.container.py-3.pt-lg-3
+			.row.align-items-start
+				#batch-intro.order-1.order-lg-2.col-12.col-lg-4
+					h2.h1 Fill out the envelope to order prints of your images
+					p Once you order a batch, it will begin processing and you can create a new batch. 
+				#batch-order-form-wrap.order-2.order-lg-1.col-12.col-lg-8.mt-n4
+					.envelope-edge
 					include partials/batch-form.pug
+					.envelope-edge.bottom
 
 block append footer
