@@ -10,4 +10,4 @@ export YAGNA_APPKEY=$(yagna app-key create requester)
 echo "Initializing payment"
 yagna payment init -r --driver=NGNT
 echo "Running web server"
-npm run start
+PORT=3001 npm run start

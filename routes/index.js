@@ -120,6 +120,9 @@ router.post("/create/:jobid", function(req, res) {
         throw err; 
       } else {
         console.log(`Job ${jid} created.`);
+        // Add data to status endpoint
+        global.jobStatus[jid] = new JobStatus(jid, Status.Creating);
+        console.log(JSON.stringify(global.jobStatus));
         child.exec(`npm run --prefix agent process -- --job ${jid} >> agent.log`, function(error, stdout, stderr) {
           console.log(stdout);
           console.log(stderr);
@@ -133,6 +136,75 @@ router.post("/create/:jobid", function(req, res) {
     res.json(JSON.stringify(resItems));
   } catch (error) {
     console.error(error);
+  }
+});
+
+// Classes and endpoints for status
+class JobStatus {
+  constructor(jobId, status) { 
+    this.jobId = jobId; 
+    this.status = status; 
+ }
+}
+
+const Status = Object.freeze({
+  Error:   "Error",
+  Creating:  "Creating",
+  Started: "Started",
+  Negotiating: "Negotiating",
+  Sending: "Sending",
+  Processing: "Processing",
+  Receiving: "Receiving",
+  Complete: "Complete"
+});
+
+
+router.get("/status", function(req, res, next) {
+  try {
+    res.write("Jobs:\n");
+    for(let jid in global.jobStatus) {
+      let lookup = global.jobStatus[jid];
+      res.write(`${lookup.jobId} ${lookup.status}\n`);
+    }
+    res.end();
+
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+router.get("/status/:jobid", function(req, res, next) {
+  let jid = req.params.jobid;
+  try {
+
+    if(global.jobStatus[jid] == undefined) {
+      res.status(400).send('Bad Request');
+    } else {
+      let lookup = global.jobStatus[jid];
+      res.status(200).send(`${lookup.status}`);
+    }
+    
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+router.post("/status/:jobid/:jobstatus", function(req, res, next) {
+  let jid = req.params.jobid;
+  let status = req.params.jobstatus;
+  try {
+    if(global.jobStatus[jid] == undefined) {
+      res.status(400).send('Bad Request');
+    } else {
+      global.jobStatus[jid].status = status;
+      res.status(200).send(`${jid} updated to ${status}`);
+    }
+    
+  } catch (error) {
+    console.error(error);
+    next(error);
   }
 });
 

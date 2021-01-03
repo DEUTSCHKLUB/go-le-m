@@ -37,6 +37,21 @@ class JobAction {
   name: string = "";
 }
 
+enum Status {
+  Error = "Error",
+  Creating = "Creating",
+  Started = "Started",
+  Negotiating = "Negotiating",
+  Sending = "Sending",
+  Processing = "Processing",
+  Receiving = "Receiving",
+  Complete = "Complete"
+}
+
+function updateStatus(jobid: string, status: Status) {
+  child.exec(`curl -X POST http://localhost:3001/status/${jobid}/${status}`);
+}
+
 // tar cvzf ./jobs/123/input.tar.gz -C ./jobs/123/input/ .
 // tar xvzf ./jobs/123/result.tar.gz -C ./jobs/123
 // 
@@ -99,12 +114,13 @@ function packageJob(jobInputFolder: string, jobOutputFolder: string) {
 }
 
 async function main(subnetTag: string, hash: string, job: string, cpu?: number, memory?: number, storage?:number) {
+  // Increasing default requirements to remove some slower nodes
   if (cpu == undefined || Number.isNaN(cpu)) {
-    cpu = 1;
+    cpu = 2;
   }
 
   if (memory == undefined || Number.isNaN(memory)) {
-    memory = 1;
+    memory = 4;
   }
 
   if (storage == undefined || Number.isNaN(storage)) {
@@ -124,13 +140,20 @@ async function main(subnetTag: string, hash: string, job: string, cpu?: number, 
   let jobOutputFolder: string = `${jobRootFolder}/output/${job}`;
   let jobOutputFile: string = `${jobOutputFolder}/output.tar.gz`;
 
+  updateStatus(job, Status.Started);
+
   packageJob(jobInputFolder, jobOutputFolder);
 
   const _package = await vm.repo(hash, memory, storage, cpu);
 
   let workDefinition = async function* worker(ctx: WorkContext, tasks) {
     let sentPackageFile = "/golem/work/input.tar.gz";
+
+    updateStatus(job, Status.Sending);
+
     ctx.send_file(jobPackage, sentPackageFile);
+
+    // updateStatus(job, Status.Processing);
 
     for await (let task of tasks) {
       let taskDat: any = task.data();
@@ -147,6 +170,8 @@ async function main(subnetTag: string, hash: string, job: string, cpu?: number, 
 
       ctx.run("/bin/sh", commands);
 
+      updateStatus(job, Status.Processing); // Should be Receiving
+
       ctx.download_file(
         '/golem/output/output.log', //outputFile,
         `${jobOutputFolder}/output.log` //jobResults
@@ -156,11 +181,15 @@ async function main(subnetTag: string, hash: string, job: string, cpu?: number, 
         '/golem/output/output.tar.gz', //outputFile,
         `${jobOutputFile}` //jobResults
       );
+
       /*ctx.download_file(
         outputFile, //outputFile,
         jobResults //jobResults
       );*/
       yield ctx.commit();
+
+      updateStatus(job, Status.Complete);
+
       // TODO: Check
       // job results are valid // and reject by:
       // task.reject_task(msg = 'invalid file')
@@ -183,6 +212,8 @@ async function main(subnetTag: string, hash: string, job: string, cpu?: number, 
   console.log("timeout=", timeout);
   console.log("work def=", workDefinition);
   console.log("workers=", workers);
+
+  updateStatus(job, Status.Negotiating);
 
   await asyncWith(
     await new Engine(
