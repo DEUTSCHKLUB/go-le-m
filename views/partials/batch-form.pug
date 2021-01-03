@@ -60,8 +60,8 @@ form#batch-form(name="batch-form", method="post", action="/create/")
                         svg.bi(width='22' height='22' fill='currentColor')
                             use(xlink:href='/icons.svg#arrows-angle-expand')
                         | Resize Images
-                    input#batch-resize.form-control(name='resize' placeholder='Maximum resize dimensions' type='text' aria-describedby='batch-resizeHelpBlock')
-                    span#batch-resizeHelpBlock.form-text.text-muted Set the maximum dimension for the images in this batch (value will be in pixels).
+                    input#batch-resize.form-control(name='resize' placeholder='Maximum resize dimensions' type='text' pattern="[0-9]+x[0-9]+" aria-describedby='batch-resizeHelpBlock')
+                    span#batch-resizeHelpBlock.form-text.text-muted Maximum dimensions of your images (Format e.g. 600x600)
             .form-group.col-12.col-md-6
                 label.section-label(for='batch-scale-images')
                     svg.bi(width='22' height='22' fill='currentColor')
@@ -108,68 +108,8 @@ form#batch-form(name="batch-form", method="post", action="/create/")
                         input#batch-colorize-images_3.custom-control-input(name='colorize' type='radio' value='' aria-describedby='batch-colorize-imagesHelpBlock' checked)
                         label.custom-control-label(for='batch-colorize-images_3') None
                     span#batch-colorize-imagesHelpBlock.form-text.text-muted Choose an colorization option for the batch
-        .col-12.px-0.mb-2
-            button.btn(name='submit' type='submit') Order Batch
+        #button-wrap.col-12.px-0.mb-2
+            button.btn(name='submit' type='submit') Order Prints
 
-script.
-    ;(function(w,d){
-
-        let form = document.querySelector('#batch-form');
-
-        function makeBatch(event){
-            event.preventDefault();
-            const form = event.currentTarget;
-
-            let url = form.action;
-
-            try {
-                let formData = new FormData(form);
-
-                url = url + formData.get('batchId');
-
-                //- I have to collect all the selected values before passing it
-                
-                imageSelectOptions = Array(...form['batchImageSelect'].options).reduce((acc, option) => {
-                    if (option.selected === true) {
-                        acc.push(option.value);
-                    }
-                    return acc;
-                }, []);
-                formData.set('batchImageSelect', imageSelectOptions);
-
-                imageTransforms = Array(...form['colorCorrections']).reduce((acc, option) => {
-                    if (option.checked === true) {
-                        acc.push(option.value);
-                    }
-                    return acc;
-                }, []);
-                formData.set('colorCorrections', imageTransforms);
-
-                let plainFormData = Object.fromEntries(formData.entries()),
-                    formDataJsonString = JSON.stringify(plainFormData),
-                    fetchOptions = {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            Accept: "application/json",
-                        },
-                        body: formDataJsonString,
-                    };
-
-                fetch(url, fetchOptions).then(res => {
-                    return res.json();
-                }).then( data => {
-                    console.log("Form!: ", data);
-                }).catch(function(e) {
-                    console.log('Error', e);
-                });
-
-            } catch (error) {
-                console.error(error);
-            }
-
-        };
-
-        form.addEventListener('submit', makeBatch);
-
-    })(window,document)
+block append footer
+    script(src="/javascripts/batch.js")

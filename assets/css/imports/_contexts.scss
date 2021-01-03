@@ -1,0 +1,35 @@
+.context-item{
+    font-family:'Yesteryear', cursive;
+    color:$red;
+    text-align: center;
+    position: relative;
+    text-shadow: -.2rem .2rem 0px $white;
+    transform: rotate(-10deg);
+    &:after{
+        content:"";
+        display:block;
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        background:$yellow;
+        border-radius: 50%;
+        filter:blur(1rem);
+        width:90%;
+        height:90%;
+        z-index:-1;
+    }
+    svg{
+        display:none;
+        @include media-breakpoint-up(lg){
+            display:inline-block;
+        }
+    }
+    &.red{
+        color:$yellow;
+        text-shadow: -.2rem .2rem 0px $black;
+        &:after{
+            background: $red;
+        }
+    }
+}

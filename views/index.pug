@@ -15,16 +15,16 @@ block content
 						|Enjoy your snapshots
 						br
 						|when they're
-					.next-line(style="position:absolute;top:13rem;right:0;")
+					.next-line(style="position:absolute;top:11.5rem;right:0;")
 						h2.h1.text-yellow.text-shadow.text-shadow-lg
 							|and more!
 				.huge-animated-text.col-12.text-right
 					include partials/header-texts.pug
 				.header-image-examples.col-12.col-lg-10
 					figure.header-image-example#header-image-before
-						img(src="/images/computer-guy.jpg")
+						img(src="/images/computer-guy.jpg" width="350")
 					figure.header-image-example#header-image-after
-						img(src="/images/computer-guy.jpg")
+						img(src="/images/computer-guy.jpg" width="350")
 	section#intro-upload-section
 		.container.px-3.py-3.py-lg-5
 			.row
@@ -41,7 +41,13 @@ block content
 						li color correct your images
 						li rename images
 						li add color filters like sepiatone or greyscale
-					p either individually, all at once, or in spearate batches. go Le'M will then send back an archive with all your new images. 
+					p either individually, all at once, or in spearate batches. go Le'M will then send back an archive with all your new images.
+
+					.context-item.py-5.px-3
+						h3.h1.text-red.font-yesteryear
+							| Start by adding some photos!
+						svg.bi(width='60' height='60' fill='currentColor')
+							use(xlink:href='/icons.svg#arrow-return-right')
 				#uploadForm.col-12.col-lg-7.pl-0.pl-lg-4
 					figure.mb-0
 						img(src="/images/upload-sign.gif" class="img-fluid w-100 h-auto" style="mix-blend-mode:multiply;")
@@ -49,12 +55,47 @@ block content
 	section#batch-form-section(style="perspective:600px;")
 		.container.py-3.pt-lg-3
 			.row.align-items-start
-				#batch-intro.order-1.order-lg-2.col-12.col-lg-4
-					h2.h1 Fill out the envelope to order prints of your images
-					p Once you order a batch, it will begin processing and you can create a new batch. 
+				.order-1.order-lg-2.col-12.col-lg-4
+					.context-item.py-5.px-0
+						h3.h1.font-yesteryear
+							| Then...
+							br
+							br
+							|Fill out the envelope to order prints
+						svg.bi(width='60' height='60' fill='currentColor')
+							use(xlink:href='/icons.svg#arrow-return-left')
 				#batch-order-form-wrap.order-2.order-lg-1.col-12.col-lg-8.mt-n4
 					.envelope-edge
 					include partials/batch-form.pug
 					.envelope-edge.bottom
+	section#batch-progress
+		.container.py-5
+			.row.align-items-center.justify-content-start
+				.col-12.col-lg-7
+					.context-item.py-5.px-0
+						h3.h1.font-yesteryear
+							|Prints made 
+							br
+							|while you wait!
+						svg.bi(width='60' height='60' fill='currentColor')
+							use(xlink:href='/icons.svg#camera2')
+				.col-12.col-lg-5
+					p We'll notifiy you here when your batch is ready to download
+					p Click the button to download once it's ready
+				.col-12.col-lg-9.offset-lg-3
+					#batch-job-waiting-wrap
+						.row.align-items-center.justify-content-center.py-3
+							.batch-waiting-name.col-12.col-lg-3
+								p.m-0 Batch Name
+							.batch-waiting-info.col-12.col-lg-6
+								span.op-icon.rotate
+								span.op-icon.flip
+								span.op-icon.resize
+								span.op-icon.scale
+								span.op-icon.colorize
+								span.op-icon.color-correction
+							.batch-waiting-link.col-12.col-lg-3
+								a.btn(disabled="disabled" href="#" data-job="345678901")
+									|Processing
 
 block append footer

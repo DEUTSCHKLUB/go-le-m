@@ -16,13 +16,6 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: "Go Le'M – Photo Processing Machin" });
 });
 
-/* GET FILE TREE BY JOB ID */
-
-router.get("/tree/:jobid", function(req, res) {
-  let id = req.params.jobid;
-  res.json(tree(path.join(baseJobPath, id)));
-});
-
 /* IMAGE UPLOAD AND SAVE TO DISK ENDPOINT */
 
 router.post("/upload/:jobid", function(req, res) {
@@ -57,31 +50,19 @@ router.post("/create/:jobid", function(req, res) {
   // notes, gotta split the file select field and the color correction field into an array
   let template = JSON.parse(config); // <- this is for later
   let jid = req.params.jobid;
-
-  /*
-    {
-      batchFileName: 'Names',
-      batchImageSelect: 'b7df1424a881e4d3232e6dd0ebc9d1908309e588.png,images.jpg',
-      rotate: '',
-      flip: 'horizontal',
-      resize: '600',
-      aspectRatio: '-extent',
-      scale: '105',
-      colorCorrections: '-equalize,+channel -normalize',
-      colorize: '-colorspace Gray',
-      batchId: '1609617590725'
-    }
-  */
+  let resItems = {};
 
   const {batchFileName, batchImageSelect, colorCorrections, batchId, ...transforms} = req.body;
 
-  console.log(batchFileName, batchImageSelect, colorCorrections, batchId, transforms);
-
   template.images = batchImageSelect.split(",");
 
+  resItems.name = batchFileName;
+  resItems.jobid = jid;
+  resItems.ops = [];
   // get the easy transforms added to json 
   for(const [key, value] of Object.entries(transforms)){
     if(value != ""){
+      resItems.ops.push(key);
       let fsname = value.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").replace(/\s+/g,"-").toLowerCase();
       let action = {
               "action":`${key} ${value}`,
@@ -95,6 +76,7 @@ router.post("/create/:jobid", function(req, res) {
 
   for(let cc of colorCorrections.split(",")){
     if(cc != ""){
+      resItems.ops.push('color-correction');
       let fsname = cc.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").replace(/\s+/g,"-").toLowerCase();
       let action = {
               "action":`${cc}`,
@@ -109,7 +91,7 @@ router.post("/create/:jobid", function(req, res) {
     console.log(`Job ${jid} created.`)
   });
 
-  res.json(JSON.stringify(template));
+  res.json(JSON.stringify(resItems));
 });
 
 module.exports = router;

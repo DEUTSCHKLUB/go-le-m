@@ -20,6 +20,7 @@ $enable-grid-classes:       true;
 @import 'imports/_mixins';
 @import 'imports/_type';
 @import 'imports/_form-styles';
+@import 'imports/_contexts';
 
 // components
 @import '_html';
@@ -27,6 +28,7 @@ $enable-grid-classes:       true;
 @import '_intro';
 @import '_huge-texts';
 @import 'imports/_upload_form';
+@import 'imports/_batch-table';
 
 *{
     box-sizing: border-box;

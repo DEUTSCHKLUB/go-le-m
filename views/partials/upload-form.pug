@@ -1,82 +1,13 @@
-label#file-upload-label.drop-label(for='file-upload-field')
-    |Click or Drop Files Here
+label#file-upload-label.drop-label.d-flex.flex-column.align-items-center.justify-content-around(for='file-upload-field')
+    |Click or Drop Images Here (10mb Max)
+    #progress-img
+        svg.bi.start(width='40' height='40' fill='currentColor')
+            use(xlink:href='/icons.svg#arrow-repeat')
+        svg.bi.fin(width='40' height='40' fill='currentColor')
+            use(xlink:href='/icons.svg#arrow-down-circle-fill')
+        svg.bi.error(width='40' height='40' fill='currentColor')
+            use(xlink:href='/icons.svg#exclamation-circle')
     input#file-upload-field(type='file' name='uploads[]' multiple='multiple' accept="image/*")
 
-script.
-    ;(function(w,d){
-
-        // ADD FILES TO FORM (EXPECTS ARRAY)
-        function makeImageSelects(filesList){
-            const swrap = d.querySelector("select#batch-image-select"),
-                  form = d.querySelector("#batch-form");
-            swrap.innerHTML = "";
-
-            let input = document.createElement("input");
-            input.setAttribute("type", "hidden");
-            input.setAttribute("name", "batchId");
-            input.setAttribute("value", filesList.id);
-            //append to form element that you want .
-            form.appendChild(input);
-
-            for ( let file of filesList.imgs.children ) {
-                let o = document.createElement('option'),
-                    prev = document.createElement('img');
-
-                o.value = `${file.name}`;
-                o.textContent = `${file.name}`;
-                prev.src=`${file.path}`;
-                prev.className = 'option-preview';
-                o.prepend(prev);
-
-                swrap.appendChild(o);
-            }
-        }
-
-        // DRAG-N-DROP FUNCTIONALITY
-
-        const dropArea = d.getElementById('file-upload-label');
-
-        ;['dragenter', 'dragover'].forEach(eventName => {
-            dropArea.addEventListener(eventName, highlight, false);
-        })
-
-        ;['dragleave', 'drop'].forEach(eventName => {
-            dropArea.addEventListener(eventName, unhighlight, false);
-        })
-
-        function highlight(e) {
-            dropArea.classList.add('highlight');
-        }
-
-        function unhighlight(e) {
-            dropArea.classList.remove('highlight');
-        }
-
-        // FILE UPLOAD FUNCTIONALITY
-
-        const fileInput = d.querySelector('#file-upload-field');
-
-        fileInput.onchange = () => {
-            let files = [...fileInput.files];
-            if (files.length > 0) {
-
-                let formData = new FormData();
-                for (let i = 0; i < files.length; i++) {
-                    let file = files[i]
-                    formData.append('uploads[]', file, file.name)
-                }
-                
-                fetch(`/upload/${Date.now()}`, {
-                    method:'POST',
-                    body:formData	
-                }).then(res => {
-                    return res.json();
-                }).then( data => {
-                    makeImageSelects(data);
-                }).catch(function(e) {
-                    console.log('Error',e);
-                });
-            }
-        };
-
-    })(window, document)
+block append footer
+    script(src="/javascripts/upload.js")

@@ -134,6 +134,9 @@ input[type="text"]{
         display:block;
         width:100%;
     }
+    &:disabled{
+        opacity: 0.7;
+    }
 }
 
 
@@ -160,5 +163,54 @@ input:invalid,select[multiple]:invalid{
     &.bottom{
         border-top:2px solid darken($yellow, 10%);
         background-image: repeating-linear-gradient(0deg, transparent 0%, $yellow 100%), repeating-linear-gradient(90deg, $yellow-light, $yellow 1%, $yellow-light 3%);
+    }
+}
+
+span.thanks-text{
+    font-family: "Yesteryear", cursive;
+    color:$red;
+    animation: slide-up 0.5s ease-out 0s 1 forwards;
+    animation-fill-mode: forwards;
+    transform: translate(0,40px);
+    opacity: 0;
+}
+
+@keyframes slide-up{
+    to{
+        transform: translate(0,0);
+        opacity: 1;
+    }
+}
+@keyframes rotate{
+    to{
+        transform:rotate(359deg);
+    }
+}
+
+#progress-img{
+    svg{
+        display:none;
+        &.start{
+            transform:rotate(0deg);
+            animation: rotate 3s linear 0s infinite forwards;
+        }
+    }
+    &.started{
+        svg.start{
+            display:block;
+        }
+    }
+    &.fin{
+        svg.start{
+            display:none;
+        }
+        svg.fin{
+            display:block;
+        }
+    }
+    &.error{
+        svg.error{
+            display:block;
+        }
     }
 }
