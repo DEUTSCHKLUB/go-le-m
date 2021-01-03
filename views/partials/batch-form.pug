@@ -45,10 +45,10 @@ form#batch-form(name="batch-form", method="post", action="/create/")
                     | Flip Images
                 div.form-row
                     .custom-control.custom-radio.custom-control-inline
-                        input#batch-flip_0.custom-control-input(name='flip' type='radio' value='horizontal' aria-describedby='batch-flipHelpBlock')
+                        input#batch-flip_0.custom-control-input(name='flip' type='radio' value='flop' aria-describedby='batch-flipHelpBlock')
                         label.custom-control-label(for='batch-flip_0') Horizontal
                     .custom-control.custom-radio.custom-control-inline
-                        input#batch-flip_1.custom-control-input(name='flip' type='radio' value='vertical' aria-describedby='batch-flipHelpBlock')
+                        input#batch-flip_1.custom-control-input(name='flip' type='radio' value='flip' aria-describedby='batch-flipHelpBlock')
                         label.custom-control-label(for='batch-flip_1') Vertical
                     .custom-control.custom-radio.custom-control-inline
                         input#batch-flip_2.custom-control-input(name='flip' type='radio' value='' aria-describedby='batch-flipHelpBlock' checked)
@@ -96,13 +96,13 @@ form#batch-form(name="batch-form", method="post", action="/create/")
                     | Colorize Images
                 div.form-row
                     .custom-control.custom-radio.custom-control-inline
-                        input#batch-colorize-images_0.custom-control-input(name='colorize' type='radio' value='-threshold 35%' aria-describedby='batch-colorize-imagesHelpBlock')
+                        input#batch-colorize-images_0.custom-control-input(name='colorize' type='radio' value='threshold 35%' aria-describedby='batch-colorize-imagesHelpBlock')
                         label.custom-control-label(for='batch-colorize-images_0') B/W
                     .custom-control.custom-radio.custom-control-inline
-                        input#batch-colorize-images_1.custom-control-input(name='colorize' type='radio' value='-colorspace Gray' aria-describedby='batch-colorize-imagesHelpBlock')
+                        input#batch-colorize-images_1.custom-control-input(name='colorize' type='radio' value='colorspace Gray' aria-describedby='batch-colorize-imagesHelpBlock')
                         label.custom-control-label(for='batch-colorize-images_1') Greyscale
                     .custom-control.custom-radio.custom-control-inline
-                        input#batch-colorize-images_2.custom-control-input(name='colorize' type='radio' value='-sepia-tone 65%' aria-describedby='batch-colorize-imagesHelpBlock')
+                        input#batch-colorize-images_2.custom-control-input(name='colorize' type='radio' value='sepia-tone 65%' aria-describedby='batch-colorize-imagesHelpBlock')
                         label.custom-control-label(for='batch-colorize-images_2') Sepia
                     .custom-control.custom-radio.custom-control-inline
                         input#batch-colorize-images_3.custom-control-input(name='colorize' type='radio' value='' aria-describedby='batch-colorize-imagesHelpBlock' checked)
