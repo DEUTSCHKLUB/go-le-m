@@ -3,6 +3,7 @@ const express = require('express'),
       path = require('path'),
       formidable = require('formidable'),
       baseJobPath = `${appRoot}/jobs/input`,
+      child = require('child_process'),
       tree = require("directory-tree"),
       { spawn, exec, execFile } = require('child_process'),
       config = `{
@@ -45,53 +46,94 @@ router.post("/upload/:jobid", function(req, res) {
 });
 
 /* IMAGE UPLOAD AND SAVE TO DISK ENDPOINT */
-
 router.post("/create/:jobid", function(req, res) {
-  // notes, gotta split the file select field and the color correction field into an array
-  let template = JSON.parse(config); // <- this is for later
-  let jid = req.params.jobid;
-  let resItems = {};
+  try {
+    // notes, gotta split the file select field and the color correction field into an array
+    let template = JSON.parse(config); // <- this is for later
+    let jid = req.params.jobid;
+    let resItems = {};
 
-  const {batchFileName, batchImageSelect, colorCorrections, batchId, ...transforms} = req.body;
+    const {batchFileName, batchImageSelect, colorCorrections, batchId, ...transforms} = req.body;
 
-  template.images = batchImageSelect.split(",");
+    console.log(batchFileName, batchImageSelect, colorCorrections, batchId, transforms);
 
-  resItems.name = batchFileName;
-  resItems.jobid = jid;
-  resItems.ops = [];
-  // get the easy transforms added to json 
-  for(const [key, value] of Object.entries(transforms)){
-    if(value != ""){
-      resItems.ops.push(key);
-      let fsname = value.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").replace(/\s+/g,"-").toLowerCase();
-      let action = {
-              "action":`${key} ${value}`,
-              "name":`${batchFileName}_$f_${key}_${fsname}$e`
-      };
-      template.actions.push(action);
+    template.images = batchImageSelect.split(",");
+
+    resItems.name = batchFileName;
+    resItems.jobid = jid;
+    resItems.ops = [];
+
+    let tempActions = [];
+
+    let fsName = `$f_${batchFileName}$e`;
+
+    // get the easy transforms added to json 
+    for(const [key, value] of Object.entries(transforms)){
+      if(value != ""){
+        resItems.ops.push(key);
+        let action = "";
+        
+        if (key == 'flip' || key == 'colorize') {
+          action = value;
+        } else {
+          action = `${key} ${value}`;
+        }
+
+        tempActions.push(action);
+      }
     }
-  }
 
-  // split and add color corrections
+    // split and add color corrections
 
-  for(let cc of colorCorrections.split(",")){
-    if(cc != ""){
-      resItems.ops.push('color-correction');
-      let fsname = cc.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").replace(/\s+/g,"-").toLowerCase();
-      let action = {
-              "action":`${cc}`,
-              "name":`${batchFileName}_$f_${cc}_${fsname}$e`
-      };
-      template.actions.push(action);
+    for(let cc of colorCorrections.split(",")){
+      if(cc != ""){
+        resItems.ops.push('color-correction');
+        tempActions.push(cc);
+      }
     }
-  }
-  
-  fs.writeFile(path.join(baseJobPath, jid,'transforms.json'), JSON.stringify(template), (err) => { 
-    if (err) throw err; 
-    console.log(`Job ${jid} created.`)
-  });
 
-  res.json(JSON.stringify(resItems));
+    let combinedAction = "";
+    for(let action of tempActions) {
+      // Add percent to necessary slider functions
+      if (action.includes("scale")) {
+        action = `${action}%`;
+      }
+
+      if(!action.startsWith("-") && !action.startsWith("+")) {
+        action = `-${action}`;
+      }
+      combinedAction += action + " ";
+    }
+    
+    console.log(`combined action: ${combinedAction}`);
+    console.log(`fsName: ${fsName}`);
+
+    let action = {
+            "action":combinedAction,
+            "name":fsName
+    };
+    
+    template.actions.push(action);
+
+    fs.writeFile(path.join(baseJobPath, jid,'transforms.json'), JSON.stringify(template), (err) => { 
+      if (err) {
+        throw err; 
+      } else {
+        console.log(`Job ${jid} created.`);
+        child.exec(`npm run --prefix agent process -- --job ${jid} >> agent.log`, function(error, stdout, stderr) {
+          console.log(stdout);
+          console.log(stderr);
+        });
+      }
+
+    });
+
+    template.actions.push(action);
+
+    res.json(JSON.stringify(resItems));
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 module.exports = router;
