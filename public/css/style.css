@@ -4254,7 +4254,7 @@ html {
       font-size: 28px; } }
 
 body {
-  background-color: white;
+  background-color: #faf8f0;
   color: #292210; }
   @media (min-width: 992px) {
     body {
@@ -4490,7 +4490,9 @@ header#go-le-m-header {
     #batch-job-table td:first-child {
       font-family: monospace; }
     #batch-job-table td:last-child div {
+      font-family: monospace;
       display: flex;
+      align-items: center;
       justify-content: flex-end; }
 
 * {

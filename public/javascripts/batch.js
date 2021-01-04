@@ -34,7 +34,7 @@
         progWrap.className = `prog-${jobid}`;
         progWrap.appendChild(d.createTextNode(`Processing Prints...`));
         linkCell.appendChild(progWrap);
-        pollJob(jobid,progWrap)
+        pollJob(jobid,progWrap);
     }
 
     function makeBatch(event){
@@ -91,7 +91,6 @@
                 try{
                     let {name, jobid, ops} = JSON.parse(data);
                     setPrintOrderTable(name, jobid, ops);
-                    pollJob(jobid);
                 }catch(err){
                     console.log(err);
                 }
