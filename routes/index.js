@@ -2,7 +2,8 @@ const express = require('express'),
       fs = require('fs'),
       path = require('path'),
       formidable = require('formidable'),
-      baseJobPath = `${appRoot}/jobs/input`,
+      baseInputPath = `${appRoot}/jobs/input`,
+      baseOutputPath = `${appRoot}/jobs/output`,
       child = require('child_process'),
       tree = require("directory-tree"),
       { spawn, exec, execFile } = require('child_process'),
@@ -23,7 +24,7 @@ router.post("/upload/:jobid", function(req, res) {
   const form = formidable({ multiples: true }),
         jid = req.params.jobid;
 
-  form.uploadDir = path.join(baseJobPath, jid);
+  form.uploadDir = path.join(baseInputPath, jid);
   if (!fs.existsSync(form.uploadDir)){
     fs.mkdirSync(form.uploadDir);
   }
@@ -115,7 +116,7 @@ router.post("/create/:jobid", function(req, res) {
     
     template.actions.push(action);
 
-    fs.writeFile(path.join(baseJobPath, jid,'transforms.json'), JSON.stringify(template), (err) => { 
+    fs.writeFile(path.join(baseInputPath, jid,'transforms.json'), JSON.stringify(template), (err) => { 
       if (err) {
         throw err; 
       } else {
@@ -175,10 +176,10 @@ router.get("/status", function(req, res, next) {
 });
 
 router.get("/status/:jobid", async function(req, res, next) {
-  let jid = req.params.jobid,
-      lookup = global.jobStatus[jid];
-
   try {
+    let jid = req.params.jobid;
+    let lookup = global.jobStatus[jid];
+
     // set SSE headers
     res.set({
       'Cache-Control': 'no-cache',
@@ -205,10 +206,40 @@ router.get("/status/:jobid", async function(req, res, next) {
   }
 });
 
-router.post("/status/:jobid/:jobstatus", function(req, res, next) {
-  let jid = req.params.jobid;
-  let status = req.params.jobstatus;
+router.get("/download/:jobid", async function(req, res, next) {
   try {
+    let jid = req.params.jobid;
+    let lookup = global.jobStatus[jid];
+
+    let outputFilename = 'output.tar.gz';
+
+    let downloadFile = path.join(baseOutputPath, jid, outputFilename);
+
+    console.log(`downloadFile: ${downloadFile}`);
+
+    res.download(downloadFile, outputFilename, (err) => {
+      if (err) {
+        res.status(500).send({
+          message: "Could not download the file. " + err,
+        });
+      }
+    });
+
+  } catch (error) {
+    res.status(500).send({
+      message: "Could not download the file. " + err,
+    });
+    /*
+    console.error(error);
+    next(error);*/
+  }
+});
+
+router.post("/status/:jobid/:jobstatus", function(req, res, next) {
+  try {
+    let jid = req.params.jobid;
+    let status = req.params.jobstatus;
+
     if(global.jobStatus[jid] == undefined) {
       res.status(400).send('Bad Request');
     } else {

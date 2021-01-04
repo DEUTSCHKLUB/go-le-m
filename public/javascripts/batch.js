@@ -7,9 +7,10 @@
         source.addEventListener('message', message => {
             if(message.data == "Complete"){
                 source.close();
-                jobProgWrap.innerHTML = `<a class="btn" href="/jobs/${jid}/output/output.tar.gz">Get Prints!</a>`;
+                jobProgWrap.innerHTML = `<a class="btn" href="/download/${jid}">Get Prints!</a>`;
+            } else {
+                jobProgWrap.innerHTML = message.data;
             }
-            jobProgWrap.innerHTML = message.data;
         });
     }
     
