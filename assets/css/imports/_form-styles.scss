@@ -127,8 +127,11 @@ input[type="text"]{
     border:0;
     padding:.4rem;
     transition: background-color 0.3s ease-out;
+    font-size:16px !important;
     &:hover,&:focus{
         background-color:$red-dark;
+        color:$white;
+        text-decoration: none;
     }
     &.btn-block{
         display:block;

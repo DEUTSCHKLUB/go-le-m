@@ -6,6 +6,11 @@ html{
     @include media-breakpoint-up(lg) { font-size: 28px; }
 }
 body{
-    background: $white;
+    background-color:$white;
+    @include media-breakpoint-up(lg){
+        background-image: url("../images/golaroid-bl.gif"), url("../images/golaroid-rd.gif"), url("../images/golaroid-yl.gif");
+        background-repeat: no-repeat, no-repeat, no-repeat;
+        background-position: 120% 105%, 105% 110%, 90% 115%;
+    }
     color:$black;
 }

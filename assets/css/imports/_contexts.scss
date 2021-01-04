@@ -5,6 +5,9 @@
     position: relative;
     text-shadow: -.2rem .2rem 0px $white;
     transform: rotate(-10deg);
+    h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{
+        font-size:2.7rem !important;
+    }
     &:after{
         content:"";
         display:block;

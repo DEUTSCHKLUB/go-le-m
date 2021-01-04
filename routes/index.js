@@ -174,16 +174,30 @@ router.get("/status", function(req, res, next) {
   }
 });
 
-router.get("/status/:jobid", function(req, res, next) {
-  let jid = req.params.jobid;
-  try {
+router.get("/status/:jobid", async function(req, res, next) {
+  let jid = req.params.jobid,
+      lookup = global.jobStatus[jid];
 
-    if(global.jobStatus[jid] == undefined) {
-      res.status(400).send('Bad Request');
-    } else {
-      let lookup = global.jobStatus[jid];
-      res.status(200).send(`${lookup.status}`);
-    }
+  try {
+    // set SSE headers
+    res.set({
+      'Cache-Control': 'no-cache',
+      'Content-Type': 'text/event-stream',
+      'Connection': 'keep-alive'
+    });
+    res.flushHeaders();
+
+    res.write('retry: 5000\n\n');
+
+    let interValID = setInterval(() => {
+        res.write(`data: ${lookup.status}\n\n`);
+    }, 1500);
+
+    res.on('close', () => {
+        console.log('Closing messenger');
+        clearInterval(interValID);
+        res.end();
+    });
     
   } catch (error) {
     console.error(error);
