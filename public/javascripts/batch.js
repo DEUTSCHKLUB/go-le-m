@@ -34,7 +34,7 @@
         progWrap.className = `prog-${jobid}`;
         progWrap.appendChild(d.createTextNode(`Processing Prints...`));
         linkCell.appendChild(progWrap);
-        pollJob(jid,progWrap)
+        pollJob(jobid,progWrap)
     }
 
     function makeBatch(event){
