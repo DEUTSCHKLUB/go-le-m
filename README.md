@@ -14,6 +14,8 @@ Results are returned in single archive file.
 
 [Demo Video](https://youtu.be/uEVXhjQmvMs)
 
+*Link to the hosted copy shared with a member of the golem comms team*
+
 ## Use ##
 * Upload images into the envelope to add them to the batch
 * Enter a name for the batch
