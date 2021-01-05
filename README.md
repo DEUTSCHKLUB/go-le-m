@@ -12,6 +12,8 @@ It allows users to upload multiple images and apply bulk actions to them, includ
 
 Results are returned in single archive file.
 
+[Demo Video] (https://youtu.be/uEVXhjQmvMs)
+
 ## Use ##
 * Upload images into the envelope to add them to the batch
 * Enter a name for the batch
